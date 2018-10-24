@@ -1,0 +1,11 @@
+#cadre {
+	border: 1px solid red;
+}
+
+#bloc {
+	width: 50px;
+	height: 100px;
+	background: red;
+	position: relative; /* permettra de décaler le bloc*/
+	left: 0px; /* initialise la position gauche du bloc à déplacer*/
+}

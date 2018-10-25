@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>temoignage à envoyer sur serveur OC</title>
+</head>
+<body>
+    <h1>Ajout d'un article</h1>
+        <form>
+            <p>
+                <label for="pseudo">Pseudo :</label>
+                <input type="text" name="pseudo" id="pseudo" required>
+                <br>
+            </p>
+            <p>
+             Ce cours était :
+             <br>
+             <input type="radio" name="evaluation" value="5" id="genial">
+             <label for="genial">Génial</label>
+             <br>
+             <input type="radio" name="evaluation" value="4" id="tresBien">
+             <label for="tresBien">Trés bien</label>
+             <br>
+             <input type="radio" name="evaluation" value="3" id="pasMal">
+             <label for="pasMal">Pas mal</label>
+             <br>
+             <input type="radio" name="evaluation" value="2" id="bof">
+             <label for="bof">Bof</label>
+             <br>
+             <input type="radio" name="evaluation" value="1" id="nul">
+             <label for="nul">Nul</label>
+             <br>
+            </p>
+            <p>
+            <label for="message">Entrez votre message :</label>
+            <br>
+            <textarea type="textarea" name="message" id="message" rows="5" required ></textarea>
+
+            <br>
+            </p>
+                <input type="submit" name="ajouter" value="Ajouter" required>
+        </form>
+        <div id="commentaire"></div>
+
+    <script src="../js/ajax.js"></script>
+    <script src="../js/temoignage.js"></script>
+</body>
+
+</html>

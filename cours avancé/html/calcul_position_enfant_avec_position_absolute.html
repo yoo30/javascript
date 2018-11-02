@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>calcul position d'un enfant en position absolue</title>
+</head>
+<body>
+
+    <style>
+    #parent,
+    #child {
+        position: absolute;
+        top: 50px;
+        left: 100px;
+    }
+
+    #parent {
+        width: 200px;
+        height: 200px;
+        background-color: blue;
+    }
+
+    #child {
+        width: 50px;
+        height: 50px;
+        background-color: red;
+    }
+</style>
+
+<div id="parent">
+    <div id="child"></div>
+</div>
+
+<script>
+    var parent = document.getElementById('parent');
+    var child = document.getElementById('child');
+
+    alert("Sans la fonction de calcul, la position de l'élément enfant est : \n\n" +
+        'offsetTop : ' + child.offsetTop + 'px\n' +
+        'offsetLeft : ' + child.offsetLeft + 'px');
+
+
+    function getOffset(element) { // Notre fonction qui calcule le positionnement complet
+        var top = 0,
+            left = 0;
+
+        do {
+            top += element.offsetTop;
+            left += element.offsetLeft;
+        } while (element = element.offsetParent); // Tant que « element » reçoit un « offsetParent » valide alors on additionne les valeurs des offsets
+
+        return { // On retourne un objet, cela nous permet de retourner les deux valeurs calculées
+            top: top,
+            left: left
+        };
+    }
+
+
+    alert("Avec la fonction de calcul, la position de l'élément enfant est : \n\n" +
+        'offsetTop : ' + getOffset(child).top + 'px\n' +
+        'offsetLeft : ' + getOffset(child).left + 'px');
+</script>
+</body>
+</html>
+
+<!--
+    Si :
+
+do {
+
+    top += element.offsetTop;
+
+    left += element.offsetLeft;
+
+} while (element = element.offsetParent);
+
+et
+<body>
+
+    <div id="parent" style="position:absolute; top:200px; left:200px;">
+
+        <div id="child" style="position:absolute; top:100px; left:100px;"></div>
+
+    </div>
+
+</body>
+
+    son schéma de fonctionnement sera le suivant pour le calcul des valeurs de positionnement de l'élément #child :
+
+    La boucle s'exécute une première fois en ajoutant les valeurs de positionnement de l'élément #child à nos deux variables top et left. Le calcul effectué est donc :
+
+top = 0 + 100; // 100
+
+left = 0 + 100; // 100
+
+Ligne 4, on attribue à element l'objet de l'élément parent de #child. En gros, on monte d'un cran dans l'arbre DOM. L'opération est donc la suivante :
+
+element = child.offsetParent; // Le nouvel élément est « parent »
+
+Toujours ligne 4, element possède une référence vers un objet valide (qui est l'élément #parent), la condition est donc vérifiée (l'objet est évalué à true) et la boucle s'exécute de nouveau.
+
+La boucle se répète en ajoutant cette fois les valeurs de positionnement de l'élément #parent à nos variables top et left. Le calcul effectué est donc :
+
+top = 100 + 200; // 300
+
+left = 100 + 200; // 300
+
+Ligne 4, cette fois l'objet parent de #parent est l'élément <body>. La boucle va donc se répéter avec <body> qui est un objet valide. Comme nous n'avons pas touché à ses styles CSS il ne possède pas de valeurs de positionnement, le calcul effectué est donc :
+
+top = 300 + 0; // 300
+
+left = 300 + 0; // 300
+
+Ligne 4, <body> a une propriété offsetParent qui est à undefined, la boucle s'arrête donc.
+
+-->

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>compte a rebours</title>
+</head>
+<body>
+<button id="myButton">Annuler le compte à rebours (5s)</button>
+
+<script>
+    (function() {
+
+        var button = document.getElementById('myButton'),
+            timeLeft = 5;
+
+        var timerID = setTimeout(function() { // On crée notre compte à rebours
+            clearInterval(intervalID);
+            button.innerHTML = "Annuler le compte à rebours (0s)";
+            alert("Vous n'êtes pas très réactif vous !");
+        }, 5000);
+
+        var intervalID = setInterval(function() { // On met en place l'intervalle pour afficher la progression du temps
+            button.innerHTML = "Annuler le compte à rebours (" + --timeLeft + "s)";
+        }, 1000);
+
+        button.addEventListener('click', function() {
+            clearTimeout(timerID); // On annule le compte à rebours
+            clearInterval(intervalID); // Et l'intervalle
+            alert("Le compte à rebours a bien été annulé.");
+        });
+
+    })();
+</script>
+</body>
+</html>
